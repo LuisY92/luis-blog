@@ -33,7 +33,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # 作者配置
 [author]
   name = "Luis"
-  email = "luisy02@outlook.com"
+  email = "luisy92@outlook.com"
   link = ""
 
 # 菜单配置
@@ -194,7 +194,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # 是否为副标题显示打字机动画
       typeit = false
       # 是否显示社交账号
-      social = true
+      social = false
       # LoveIt 新增 | 0.2.0 免责声明 (支持 HTML 格式)
       disclaimer = ""
     # 主页文章列表
