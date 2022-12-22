@@ -1,4 +1,5 @@
 baseURL = 'https://luisy92.github.io/luis-blog/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+languageCode = 'zh'
+defaultContentLanguage = "zh"
+title = '思忆录'
 theme = "anatole"
