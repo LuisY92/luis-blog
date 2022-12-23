@@ -1,4 +1,4 @@
-baseURL = "https://luisy92.github.io/luis-blog/"
+baseURL = "https://www.luisy92.win"
 
 # 更改使用 Hugo 构建网站时使用的默认主题
 theme = "LoveIt"
