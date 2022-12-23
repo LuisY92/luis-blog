@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://www.luisy92.win/sitemap.xml
+Sitemap: https://luisy92.win/sitemap.xml
