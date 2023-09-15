@@ -1,7 +1,7 @@
 ---
 title: "重拾Flomo,践行PAIR管理法"
 date: 2023-09-16T05:12:09+08:00
-draft: true
+draft: false
 tags: ["工具"]
 categories: ["个人成长"]
 ---
