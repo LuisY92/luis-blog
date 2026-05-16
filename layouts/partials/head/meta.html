@@ -1,0 +1,49 @@
+{{- /* Override theme meta.html: per-post featuredImage in OG/Twitter cards */ -}}
+{{- $params := .Scratch.Get "params" -}}
+
+{{- /* Pick share image: per-post featuredImage > site default */ -}}
+{{- $defaultImages := .Site.Params.images | default slice -}}
+{{- $image := index $defaultImages 0 | default "" -}}
+{{- if .IsPage -}}
+    {{- with .Params.featuredimage -}}{{- $image = . -}}{{- end -}}
+    {{- with .Params.featuredimagepreview -}}{{- $image = . -}}{{- end -}}
+{{- end -}}
+{{- $imageURL := $image -}}
+{{- if and $image (not (or (hasPrefix $image "http://") (hasPrefix $image "https://"))) -}}
+    {{- $imageURL = $image | absURL -}}
+{{- end -}}
+
+{{- $description := $params.description | default .Description | default .Summary | default .Site.Params.description -}}
+{{- $title := cond .IsHome .Site.Title (printf "%s - %s" .Title .Site.Title) -}}
+
+<meta name="Description" content="{{ $description }}">
+
+{{- /* Open Graph */ -}}
+<meta property="og:title" content="{{ .Title | default .Site.Title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{- with $imageURL }}<meta property="og:image" content="{{ . }}">{{- end }}
+{{- if .IsPage -}}
+    {{- with .PublishDate }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{- end }}
+    {{- with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{- end }}
+{{- end -}}
+
+{{- /* Twitter Cards */ -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title | default .Site.Title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{- with $imageURL }}<meta name="twitter:image" content="{{ . }}">{{- end }}
+{{- with .Site.Social.twitter }}<meta name="twitter:site" content="@{{ . }}">{{- end }}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+{{- with .Site.Params.app.themeColor -}}
+    <meta name="theme-color" content="{{ . }}">
+{{- end -}}
+
+{{- with .Site.Params.app.tileColor -}}
+    <meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}
