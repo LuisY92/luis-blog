@@ -52,3 +52,11 @@ git push origin main
 ```
 
 如果命令行 GitHub 凭据不可用，可以继续让 Codex 通过 GitHub 连接器帮你写到远端。
+
+一键发布脚本：
+
+```bash
+scripts/publish-obsidian.sh
+```
+
+这个脚本会自动执行同步、构建、提交和推送。Obsidian 插件按钮也是调用它。
