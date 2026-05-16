@@ -36,6 +36,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   email = "luisy92@outlook.com"
   link = ""
 
+# Hugo 内部 twitter_cards.html 模板会从 [social] 读取 twitter 用户名
+# 用于生成 <meta name="twitter:site" content="@HLuis92">
+[social]
+  twitter = "HLuis92"
+
 # 菜单配置
 [menu]
   [[menu.main]]
@@ -208,12 +213,12 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   # 作者的社交信息设置
   [params.social]
-    GitHub = "xxxx"
+    GitHub = ""
     Linkedin = ""
-    Twitter = "xxxx"
-    Instagram = "xxxx"
-    Facebook = "xxxx"
-    Telegram = "xxxx"
+    Twitter = "HLuis92"
+    Instagram = ""
+    Facebook = ""
+    Telegram = ""
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
