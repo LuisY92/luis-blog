@@ -4,6 +4,10 @@ date: 2026-04-22
 draft: false
 tags: ["当牛做马"]
 categories: ["轶群说", "当牛做马"]
+featuredImage: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
+featuredImagePreview: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
+coverQuery: "artificial intelligence technology"
+unsplashCredit: "Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
 ---
 
 打工人现在桌面上大多开着一个AI窗口。问问题、查资料、写初稿——它就像一个随叫随到的助手，从不请假，也不摸鱼。
@@ -33,3 +37,5 @@ categories: ["轶群说", "当牛做马"]
 生产力剧变的时代，路看不清很正常。但有一件事越来越清楚：token额度，正在变成一种真实的生产资源。谁掌握更多，谁就跑得更快。
 
 充值这件事，好像已经不是"要不要"的问题，而是"充多少"的问题了。
+
+<small>Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>
