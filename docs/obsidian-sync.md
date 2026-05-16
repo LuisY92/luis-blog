@@ -60,3 +60,25 @@ scripts/publish-obsidian.sh
 ```
 
 这个脚本会自动执行同步、构建、提交和推送。Obsidian 插件按钮也是调用它。
+
+## 自动头图
+
+同步脚本可以用 Unsplash API 给新文章自动补头图。
+
+1. 去 [Unsplash Developers](https://unsplash.com/developers) 创建应用，拿到 `Access Key`。
+2. 在仓库根目录创建 `.env.local`：
+
+```bash
+UNSPLASH_ACCESS_KEY="你的 Access Key"
+OBSIDIAN_AUTO_COVER=1
+```
+
+默认只给新文章补头图，已经发布过且有 `featuredImage` 的文章会保留原图。
+
+如果要给旧文章批量补图：
+
+```bash
+node scripts/sync-obsidian.js --auto-cover --backfill-covers
+```
+
+脚本会使用 Unsplash API 返回的图片 URL 作为 `featuredImage`，并在文末加入摄影师和 Unsplash 署名。
