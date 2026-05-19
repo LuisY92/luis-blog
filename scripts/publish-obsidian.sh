@@ -3,6 +3,16 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+# Obsidian launches this via execFile and does not inherit shell PATH,
+# so nvm-managed node is not visible. Load nvm explicitly when present.
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  set +u
+  # shellcheck disable=SC1091
+  . "$NVM_DIR/nvm.sh"
+  set -u
+fi
+
 if [ -f .env.local ]; then
   set -a
   # shellcheck disable=SC1091
