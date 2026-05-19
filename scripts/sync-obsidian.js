@@ -216,7 +216,23 @@ function convertImages(body, notePath, imageIndex, writes, warnings) {
     return `![${alt || stripExt(path.basename(target))}](${copyImage(imagePath, writes)})`;
   });
 
-  return next;
+  // Obsidian wikilink images render as block-level, but standard markdown
+  // treats an image jammed between text lines as inline inside the same <p>.
+  // Force each image onto its own paragraph by padding with blank lines.
+  const lines = next.split("\n");
+  const out = [];
+  const imageLine = /^!\[[^\]]*\]\([^)]+\)\s*$/;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (imageLine.test(line)) {
+      if (out.length > 0 && out[out.length - 1].trim() !== "") out.push("");
+      out.push(line);
+      if (i + 1 < lines.length && lines[i + 1].trim() !== "") out.push("");
+    } else {
+      out.push(line);
+    }
+  }
+  return out.join("\n");
 }
 
 function shouldSkipNote(file) {

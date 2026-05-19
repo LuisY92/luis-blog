@@ -11,6 +11,7 @@ unsplashCredit: "Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_so
 ---
 
 ![growtika-nGoCBxiaRO0-unsplash 1](/images/obsidian/growtika-ngocbxiaro0-unsplash-1-82824c4c1414.jpg)
+
 最近我刻意提升AI在工作中的比重，并认真打磨prompt技巧，希望能够用好 AI。这种尝试让我深刻体会到一个道理：
 
 AI现在就像一把锋利的武器，用不好会伤到自己。
