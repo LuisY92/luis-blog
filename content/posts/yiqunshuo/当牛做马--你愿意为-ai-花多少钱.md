@@ -1,6 +1,6 @@
 ---
 title: "你愿意为 AI 花多少钱"
-date: 2026-04-22
+date: 2026-04-16T21:50:57.224Z
 draft: false
 tags: ["当牛做马"]
 categories: ["轶群说", "当牛做马"]

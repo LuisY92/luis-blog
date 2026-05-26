@@ -1,6 +1,6 @@
 ---
 title: "AI 来抢饭碗了"
-date: 2025-09-07
+date: 2025-09-06T22:41:10.000Z
 draft: false
 tags: ["公众号", "当牛做马"]
 categories: ["轶群说", "当牛做马"]
