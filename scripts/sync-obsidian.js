@@ -139,6 +139,16 @@ function formatDate(date) {
   return date.toISOString();
 }
 
+function normalizeFrontmatterDate(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (!s) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString();
+}
+
 function buildImageIndex(files) {
   const index = new Map();
   for (const file of files) {
@@ -317,9 +327,13 @@ async function makePost(file, imageIndex, writes, warnings) {
   const category = relParts.length > 1 ? relParts[0] : "轶群说";
   const target = makeTargetPath(file);
   const existingData = getExistingData(target);
-  const existingDate = existingData.date || null;
+  const existingDate = normalizeFrontmatterDate(existingData.date);
   const stat = fs.statSync(file);
-  const date = existingDate || data.published || data.date || formatDate(stat.birthtimeMs ? stat.birthtime : stat.mtime);
+  const date =
+    existingDate ||
+    normalizeFrontmatterDate(data.published) ||
+    normalizeFrontmatterDate(data.date) ||
+    formatDate(stat.birthtimeMs ? stat.birthtime : stat.mtime);
   const tags = Array.from(new Set([...normalizeList(data.tags), category].filter(Boolean)));
   const summary = data.summary ? `summary: ${quote(data.summary)}\n` : "";
   const existingFeaturedImage = existingData.featuredImage || "";
