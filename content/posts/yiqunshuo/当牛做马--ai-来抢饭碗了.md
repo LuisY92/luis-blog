@@ -51,4 +51,10 @@ OpenAI提出了人工智能发展的五个阶段：
 
 AI不是来抢饭碗的，而是给了我们重新思考人生的机会。**未来真正的竞争力不在于你有多努力，而在于你能多清晰地看到终点。**
 
+## 关联笔记
+- [[最新封面报道｜你被AI“炼化”了吗？]] — AI 对组织与个体工作的重塑，是“抢饭碗”主题的外部案例
+- [[最新封面报道之二｜AI校招扩容]] — 连接 AI 冲击就业与企业招聘结构变化
+- [[2026-06-04-10-个角度理解-AI-对经济的影响]] — 从宏观经济视角补充 AI 对劳动力市场的影响
+- [[你愿意为 AI 花多少钱]] — 同属 AI 主题，从工作替代转向个人付费意愿
+
 <small>Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

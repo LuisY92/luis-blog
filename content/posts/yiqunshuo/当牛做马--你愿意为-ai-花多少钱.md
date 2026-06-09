@@ -38,4 +38,10 @@ unsplashCredit: "Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?u
 
 充值这件事，好像已经不是"要不要"的问题，而是"充多少"的问题了。
 
+## 关联笔记
+- [[随笔｜真的不必过度担忧：与GPT相处1000天之后]] — 从长期使用体验补充 AI 消费与陪伴价值
+- [[封面_上篇_短剧变局AI生意自闭环]] — AI 应用商业化与用户付费场景的产业侧案例
+- [[2026-05-29-用DeepSeek跑通一单副业-48小时完整复盘]] — 个人用 AI 创造收入，用收益反推付费意愿
+- [[AI 来抢饭碗了]] — 同属 AI 主题，连接 AI 的消费价值与职业冲击
+
 <small>Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>
