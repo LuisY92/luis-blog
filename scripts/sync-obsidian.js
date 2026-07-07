@@ -6,7 +6,7 @@ const crypto = require("node:crypto");
 
 const REPO_ROOT = path.resolve(__dirname, "..");
 const DEFAULT_SOURCE =
-  "/Users/luis/Library/Mobile Documents/iCloud~md~obsidian/Documents/Luis_Zone/轶群说";
+  "/Users/luis/Library/Mobile Documents/iCloud~md~obsidian/Documents/Luis_Zone/📦 档案层/轶群说";
 const POSTS_DIR = path.join(REPO_ROOT, "content", "posts", "yiqunshuo");
 const STATIC_IMAGE_DIR = path.join(REPO_ROOT, "static", "images", "obsidian");
 const IMAGE_URL_PREFIX = "/images/obsidian";
