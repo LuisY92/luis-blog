@@ -1,0 +1,48 @@
+---
+title: "Claude 还是把我封了"
+date: 2026-08-08T22:58:26.776Z
+draft: false
+tags: ["我和AI"]
+categories: ["轶群说", "我和AI"]
+featuredImage: "https://images.unsplash.com/photo-1618393678187-fb258b8ee191?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHwzfHx3cml0aW5nJTIwam91cm5hbCUyMGRlc2t8ZW58MXwwfHx8MTc4NjIyOTkwOXww&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
+featuredImagePreview: "https://images.unsplash.com/photo-1618393678187-fb258b8ee191?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHwzfHx3cml0aW5nJTIwam91cm5hbCUyMGRlc2t8ZW58MXwwfHx8MTc4NjIyOTkwOXww&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
+coverQuery: "writing journal desk"
+unsplashCredit: "Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+summary: "Claude 封了我的账号，但我的 AI 生活早已迁移到国产模型。聊聊我现在怎么用 AI。"
+---
+
+没想到我的 Claude 也被封了，之前就听闻 Claude 会封中国账户，看来我还是被查到了。
+
+![Pasted image 20260809062525](/images/obsidian/pasted-image-20260809062525-b4c8b37e5df0.png)
+
+虽然我现在的主力早已不是 Claude，甚至都不是 OpenAI 的 Codex，但是不得不说，我个人感觉 Claude 是目前最好也最强的大模型。工作生活上，它帮了我很多。
+
+但是这样一个封闭的公司，我觉得早晚会被国产开源模型打败。通过技术封锁来防止被超越，是一种不敢直面挑战的懦弱表现。
+
+现在已经可以看到 Kimi 的 K3、智谱的 GLM5.2、Deepseek 的 V4，表现都不错。根据我个人的经验，现在的国内模型已经可以满足绝大部分人的日常需求。
+
+我现在就是重度 Deepseek V4 flash 的 API 用户，之前的定价简直不要钱，但生成质量不错。即使后面涨价了，我觉得比起国外的模型还是便宜得多。
+
+我现在的用法，主要是通过 Hermes 平台接入不同模型、处理不同任务。难一点的任务，我会切换到更强的模型；大多数任务用 Deepseek V4 就够。
+
+我现在利用几个定时任务，在投资、阅读和个人洞察三个方面用上 AI 的能力。
+
+首先我会让 AI 每天根据我们的聊天内容推荐一本书的片段。我发现这个定时任务能让我接触到足够多的书，相当于每天都有一本新书。如果这个片段读完我还意犹未尽，那么我会找时间把这本书读完。
+
+我还会把微信公众号的文章转发给 AI，他会帮我读取内容、生成摘要，然后在我的笔记库里分类好，建立彼此之间的链接。每周扫描笔记库里的文章和链接，通过不同文章的联系生成新的文章，相当于笔记与笔记之间的进化与繁殖。我会去读繁殖出来的新文章。
+
+交易日的每天早上，我都会收到一份投资晨报，回顾一下昨天的市场情况，以及有没有什么重点的市场新闻，还有对我们持仓的分析和建议。
+
+每周末还会有一份周报，扫描一下这周重要的市场新闻，以及市场板块的主题和股票推荐，利用这些信息重新审视一下我的持仓。
+
+我还会让 AI 读我每个月的日记，从日记中看看我是否有什么改变、有什么需要被提醒的地方，从旁观者的角度看看我这个月的心境和状态。
+
+当然 AI 也帮我做了不少小工具。比如读每周的《财新周刊》，生成精读报告，再做成卡片分享到社交网络。
+
+还有从多个维度评估一只股票是否值得买入、分析公司和行业。
+
+基本上现在生活中方方面面都已经离不开 AI 了。之前电影中的个人智能助手，比如钢铁侠的贾维斯，某种程度上现在已经实现了。
+
+所以 Claude 封不封我，其实已经无所谓了。我相信之后 AI 会深入到每个人的生活之中，但怎么用好它，得看每个人自己的需求。将来的 AI 是千人千面的，每个人都有一个专属的"贾维斯"。
+
+<small>Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>
