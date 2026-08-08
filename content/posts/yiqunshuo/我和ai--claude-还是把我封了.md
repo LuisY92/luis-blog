@@ -41,5 +41,3 @@ summary: "Claude 封了我的账号，但我的 AI 生活早已迁移到国产�
 基本上现在生活中方方面面都已经离不开 AI 了。之前电影中的个人智能助手，比如钢铁侠的贾维斯，某种程度上现在已经实现了。
 
 所以 Claude 封不封我，其实已经无所谓了。我相信之后 AI 会深入到每个人的生活之中，但怎么用好它，得看每个人自己的需求。将来的 AI 是千人千面的，每个人都有一个专属的"贾维斯"。
-
-<small>Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>
