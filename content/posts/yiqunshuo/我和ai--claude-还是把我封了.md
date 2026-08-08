@@ -5,9 +5,6 @@ draft: false
 tags: ["我和AI"]
 categories: ["轶群说", "我和AI"]
 featuredImage: "/images/obsidian/covers/claude-banned.png"
-featuredImagePreview: "https://images.unsplash.com/photo-1618393678187-fb258b8ee191?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHwzfHx3cml0aW5nJTIwam91cm5hbCUyMGRlc2t8ZW58MXwwfHx8MTc4NjIyOTkwOXww&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "writing journal desk"
-unsplashCredit: "Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
 summary: "Claude 封了我的账号，但我的 AI 生活早已迁移到国产模型。聊聊我现在怎么用 AI。"
 ---
 
