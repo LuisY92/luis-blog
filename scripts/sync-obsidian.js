@@ -249,6 +249,12 @@ function shouldSkipNote(file) {
   const relParts = path.relative(sourceRoot, file).split(path.sep);
   if (relParts.some((part) => part === "images")) return true;
   if (!includeDrafts && relParts.includes("草稿箱")) return true;
+  if (!includeDrafts) {
+    // New flow: drafts live directly in topic folders, marked by frontmatter status: 草稿
+    const { data } = parseFrontmatter(fs.readFileSync(file, "utf8"));
+    const status = normalizeList(data.status);
+    if (status.some((s) => s.includes("草稿"))) return true;
+  }
   return path.extname(file).toLowerCase() !== ".md";
 }
 
