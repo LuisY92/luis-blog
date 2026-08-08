@@ -342,13 +342,16 @@ async function makePost(file, imageIndex, writes, warnings) {
     formatDate(stat.birthtimeMs ? stat.birthtime : stat.mtime);
   const tags = Array.from(new Set([...normalizeList(data.tags), category].filter(Boolean)));
   const summary = data.summary ? `summary: ${quote(data.summary)}\n` : "";
+  // Source frontmatter featuredImage wins over existing/Unsplash: lets the author
+  // pin an AI-generated cover per article (see article-publishing skill, 方案 B)
+  const sourceFeaturedImage = data.featuredImage || "";
   const existingFeaturedImage = existingData.featuredImage || "";
   const existingFeaturedImagePreview = existingData.featuredImagePreview || "";
   const cover =
-    existingFeaturedImage
+    sourceFeaturedImage || existingFeaturedImage
       ? null
       : await findUnsplashCover(title, category, tags, fs.existsSync(target), warnings);
-  const featuredImage = existingFeaturedImage || cover?.image || "";
+  const featuredImage = sourceFeaturedImage || existingFeaturedImage || cover?.image || "";
   const featuredImagePreview = existingFeaturedImagePreview || cover?.preview || featuredImage;
   const unsplashCredit = existingData.unsplashCredit || cover?.attribution || "";
   let convertedBody = convertImages(body.trim(), file, imageIndex, writes, warnings);
