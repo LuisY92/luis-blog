@@ -5,6 +5,7 @@ draft: false
 tags: ["我和AI"]
 categories: ["轶群说", "我和AI"]
 featuredImage: "/images/obsidian/covers/claude-banned.png"
+featuredImagePreview: "/images/obsidian/covers/claude-banned.png"
 summary: "Claude 封了我的账号，但我的 AI 生活早已迁移到国产模型。聊聊我现在怎么用 AI。"
 ---
 
