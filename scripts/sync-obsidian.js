@@ -324,6 +324,23 @@ async function findUnsplashCover(title, category, tags, targetExists, warnings) 
   }
 }
 
+function stripRelatedNotes(body) {
+  // The 关联笔记 tail belongs to the Obsidian vault: its [[wikilinks]] do not resolve
+  // on the blog and render as literal double brackets. Keep the section in the vault,
+  // never in the generated post. Removes from the heading up to the next ## heading.
+  const lines = body.split(/\r?\n/);
+  const start = lines.findIndex((line) => /^##\s*关联笔记\s*$/.test(line));
+  if (start === -1) return body;
+  let end = lines.length;
+  for (let i = start + 1; i < lines.length; i += 1) {
+    if (/^##\s+/.test(lines[i])) {
+      end = i;
+      break;
+    }
+  }
+  return [...lines.slice(0, start), ...lines.slice(end)].join("\n").replace(/\s+$/, "");
+}
+
 async function makePost(file, imageIndex, writes, warnings) {
   const raw = fs.readFileSync(file, "utf8");
   const { data, body } = parseFrontmatter(raw);
@@ -354,7 +371,7 @@ async function makePost(file, imageIndex, writes, warnings) {
   const featuredImage = sourceFeaturedImage || existingFeaturedImage || cover?.image || "";
   const featuredImagePreview = existingFeaturedImagePreview || cover?.preview || featuredImage;
   const unsplashCredit = existingData.unsplashCredit || cover?.attribution || "";
-  let convertedBody = convertImages(body.trim(), file, imageIndex, writes, warnings);
+  let convertedBody = convertImages(stripRelatedNotes(body).trim(), file, imageIndex, writes, warnings);
 
   if (unsplashCredit) {
     convertedBody = `${convertedBody}\n\n<small>${unsplashCredit}</small>`;
