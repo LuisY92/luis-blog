@@ -6,8 +6,8 @@
   <div class="lab dim">栏目 · {{ $s.count }} 篇 · {{ .Params.status }} · {{ (index $asc 0).Date.Format "2006-01" }} 至 {{ (index $asc.Reverse 0).Date.Format "2006-01" }}</div>
   <h1>{{ .Title }}</h1>
   <p>{{ .Params.description }}</p>
-  {{- if gt $s.max (len $s.primaries) }}
-  <p class="gap">公众号上共 {{ $s.max }} {{ .Params.unit }}，本站目前收录 {{ len $s.primaries }} {{ .Params.unit }}，其余的在陆续补档。</p>
+  {{- if gt $s.max $s.count }}
+  <p class="gap">公众号上共 {{ $s.max }} {{ .Params.unit }}，本站目前收录 {{ $s.count }} {{ .Params.unit }}，其余的在陆续补档。</p>
   {{- end }}
 </header>
 <ul class="rows ser">
