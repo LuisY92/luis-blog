@@ -92,3 +92,15 @@ scripts/publish-obsidian.sh
 ## 补档：把只在公众号上有的文章放进来
 
 笔记放进对应的栏目目录即可。同步脚本在合集缓存里按标题找到它（或者笔记 frontmatter 里写了 `wechat: <文章 id>`），就用合集里的序号做期号、合集日期做发布日期，同时属于两个合集的文章会带上第二个栏目。算出来的网址如果已经被别的文章占用，脚本跳过并在 `warnings` 里提示。
+
+## 文字封面（公众号推送用）
+
+公众号推送必须有封面。文章自己有配图时用配图；没有配图时用 `scripts/make-cover.py` 生成的文字封面（期号加标题，900×383）。
+
+```bash
+/usr/bin/python3 scripts/make-cover.py            # 最新一篇
+/usr/bin/python3 scripts/make-cover.py 关键字     # 标题含关键字的最新一篇
+/usr/bin/python3 scripts/make-cover.py --og       # 重新生成站点分享图 og-cover.png
+```
+
+发布脚本每次运行会为最新一篇生成一张，放在 `Hermes/outputs/轶群说封面/`，命令会打印文件路径。脚本依赖 Pillow，要用系统自带的 `/usr/bin/python3` 运行。

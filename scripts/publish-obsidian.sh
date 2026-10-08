@@ -25,6 +25,11 @@ fi
 node scripts/refresh-wechat-albums.js || echo "WeChat album refresh skipped."
 
 node scripts/sync-obsidian.js
+
+# A text cover for the newest post, for 公众号 pushes of posts that have no
+# picture of their own. Lands in Hermes/outputs; never blocks publishing.
+/usr/bin/python3 scripts/make-cover.py || echo "Cover skipped."
+
 ./.bin/hugo --minify
 
 # GitHub Actions builds and deploys public/ on the server side. Keep the local
