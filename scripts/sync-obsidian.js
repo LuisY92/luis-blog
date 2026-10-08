@@ -311,32 +311,58 @@ function loadSeries() {
 function scanPublished() {
   const titles = new Map();
   const maxIssue = new Map();
-  if (!fs.existsSync(CONTENT_DIR)) return { titles, maxIssue };
+  const urls = new Map();
+  if (!fs.existsSync(CONTENT_DIR)) return { titles, maxIssue, urls };
   for (const file of walk(CONTENT_DIR)) {
     if (path.extname(file) !== ".md" || path.basename(file) === "_index.md") continue;
     const { data } = parseFrontmatter(fs.readFileSync(file, "utf8"));
     if (data.title) titles.set(normalizeTitle(data.title), file);
+    if (data.url) urls.set(data.url, file);
     const primary = normalizeList(data.series)[0];
     const issue = parseInt(data.issue, 10);
     if (primary && issue > (maxIssue.get(primary) || 0)) maxIssue.set(primary, issue);
   }
-  return { titles, maxIssue };
+  return { titles, maxIssue, urls };
 }
 
-// The WeChat album cache (scripts/refresh-wechat-albums.js). Used only to
-// cross-check: the blog publishes first, so a new post is usually not in it yet.
+// WeChat titles carry their own numbering ("轶周记#12 书影半年度盘点",
+// "非正式周报09 自信与读书"); the site shows the issue separately.
+function displayTitle(wechatTitle) {
+  const weekly = wechatTitle.match(/^非正式周报\s*(?:N[0O]\.?\s*)?0*(\d+)\s*/);
+  if (weekly) {
+    const rest = wechatTitle.slice(weekly[0].length).replace(/\s{2,}/g, " ").trim();
+    return rest || `非正式周报 第 ${weekly[1]} 期`;
+  }
+  const stripped = wechatTitle.replace(/^(轶周记|德国记)\s*[#＃]\s*\d+\s*/, "").replace(/\s{2,}/g, " ").trim();
+  return stripped || wechatTitle;
+}
+
+// The WeChat album cache (scripts/refresh-wechat-albums.js). The blog publishes
+// first, so a new post is usually not in it yet; an article that is already on
+// WeChat (a backfilled one) takes its column, issue and date from here.
 function loadAlbums() {
+  const byId = new Map();
   const byTitle = new Map();
-  if (!fs.existsSync(ALBUMS_FILE)) return byTitle;
+  if (!fs.existsSync(ALBUMS_FILE)) return { byId, byTitle };
   for (const album of Object.values(JSON.parse(fs.readFileSync(ALBUMS_FILE, "utf8")))) {
     const series = ALBUM_SERIES.get(album.name) || album.name;
-    for (const article of album.articles) {
-      const key = normalizeTitle(article.title);
-      if (!byTitle.has(key)) byTitle.set(key, []);
-      byTitle.get(key).push({ series, pos: article.pos ? parseInt(article.pos, 10) : null, msgid: article.msgid });
-    }
+    // Albums that show no numbering on WeChat are numbered by publish date.
+    const numbered = album.articles.every((article) => article.pos);
+    const ordered = numbered
+      ? album.articles
+      : [...album.articles].sort((a, b) => `${a.date}${a.msgid}`.localeCompare(`${b.date}${b.msgid}`));
+    ordered.forEach((article, index) => {
+      if (!byId.has(article.msgid)) {
+        const entry = { msgid: article.msgid, title: displayTitle(article.title), date: article.date, issues: new Map() };
+        byId.set(article.msgid, entry);
+        for (const key of [normalizeTitle(article.title), normalizeTitle(entry.title)]) {
+          if (!byTitle.has(key)) byTitle.set(key, entry);
+        }
+      }
+      byId.get(article.msgid).issues.set(series, numbered ? parseInt(article.pos, 10) : index + 1);
+    });
   }
-  return byTitle;
+  return { byId, byTitle };
 }
 
 async function makePost(file, imageIndex, writes, warnings, site) {
@@ -346,47 +372,63 @@ async function makePost(file, imageIndex, writes, warnings, site) {
   const relParts = rel.split(path.sep);
   const category = relParts.length > 1 ? relParts[0] : "";
   const target = makeTargetPath(file);
+  const isNew = !fs.existsSync(target);
   const existingData = getExistingData(target);
   // Once a post is linked to its WeChat article the title follows WeChat.
   const title = (existingData.wechat && existingData.title) || data.title || stripExt(path.basename(file));
 
   const owner = site.titles.get(normalizeTitle(title));
-  if (!fs.existsSync(target) && owner && owner !== target) {
+  if (isNew && owner && owner !== target) {
     warnings.push(`Skipped ${rel}: 「${title}」 is already published as ${path.relative(REPO_ROOT, owner)}`);
     return null;
   }
 
+  // The note can name its WeChat article outright (`wechat: <msgid>`); otherwise match by title.
+  const album =
+    site.albums.byId.get(String(existingData.wechat || data.wechat || "")) ||
+    site.albums.byTitle.get(normalizeTitle(title));
+  const wechat = existingData.wechat || (album ? album.msgid : "");
+
   // A post keeps the column it was published under (including "none");
   // only a brand-new post takes its column from the vault folder.
   let series = normalizeList(existingData.series);
-  if (!fs.existsSync(target)) {
+  if (isNew) {
     const folderSeries = FOLDER_SERIES.get(category) || category;
-    if (site.series.has(folderSeries)) series = [folderSeries];
-  }
-  const primary = series[0] || "";
-  let issue = parseInt(existingData.issue, 10) || 0;
-  if (primary && !issue) {
-    issue = (site.maxIssue.get(primary) || 0) + 1;
-    site.maxIssue.set(primary, issue);
-  }
-  const url = existingData.url || (primary ? `/${site.series.get(primary)}/${issue}/` : `/p/${slugify(title)}/`);
-  const aliases = normalizeList(existingData.aliases);
-
-  let wechat = existingData.wechat || "";
-  const inAlbums = site.albums.get(normalizeTitle(title)) || [];
-  const match = inAlbums.find((item) => item.series === primary) || inAlbums[0];
-  if (match) {
-    wechat = wechat || match.msgid;
-    if (match.series === primary && match.pos && match.pos !== issue) {
-      warnings.push(`Issue mismatch for 「${title}」: site No.${issue}, WeChat album No.${match.pos}`);
+    series = site.series.has(folderSeries) ? [folderSeries] : [];
+    if (album) {
+      for (const name of album.issues.keys()) {
+        if (site.series.has(name) && !series.includes(name)) series.push(name);
+      }
     }
   }
+  const primary = series[0] || "";
+  const albumIssue = album && primary ? album.issues.get(primary) || 0 : 0;
+  let issue = parseInt(existingData.issue, 10) || 0;
+  if (primary && !issue) {
+    // Already on WeChat: same number as in the album. Otherwise the next free one.
+    issue = albumIssue || (site.maxIssue.get(primary) || 0) + 1;
+  } else if (albumIssue && albumIssue !== issue) {
+    warnings.push(`Issue mismatch for 「${title}」: site No.${issue}, WeChat album No.${albumIssue}`);
+  }
+  if (primary && issue > (site.maxIssue.get(primary) || 0)) site.maxIssue.set(primary, issue);
+
+  const url = existingData.url || (primary ? `/${site.series.get(primary)}/${issue}/` : `/p/${slugify(title)}/`);
+  const urlOwner = site.urls.get(url);
+  if (urlOwner && urlOwner !== target) {
+    warnings.push(`Skipped ${rel}: ${url} already belongs to ${path.relative(REPO_ROOT, urlOwner)}`);
+    return null;
+  }
+  site.urls.set(url, target);
+  site.titles.set(normalizeTitle(title), target);
+  const aliases = normalizeList(existingData.aliases);
+
   const existingDate = normalizeFrontmatterDate(existingData.date);
   const stat = fs.statSync(file);
   const date =
     existingDate ||
     normalizeFrontmatterDate(data.published) ||
     normalizeFrontmatterDate(data.date) ||
+    (album ? normalizeFrontmatterDate(`${album.date}T08:00:00+08:00`) : null) ||
     formatDate(stat.birthtimeMs ? stat.birthtime : stat.mtime);
   const summary = data.summary || existingData.summary || "";
   const convertedBody = convertImages(

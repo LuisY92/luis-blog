@@ -1,0 +1,23 @@
+<script>
+(function () {
+  var button = document.querySelector(".mode");
+  if (!button) return;
+  var root = document.documentElement;
+  var system = window.matchMedia("(prefers-color-scheme: dark)");
+  function current() {
+    return root.getAttribute("data-theme") || (system.matches ? "dark" : "light");
+  }
+  function paint() {
+    button.textContent = current() === "dark" ? "浅色" : "深色";
+  }
+  button.hidden = false;
+  paint();
+  button.addEventListener("click", function () {
+    var next = current() === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    paint();
+  });
+  if (system.addEventListener) system.addEventListener("change", paint);
+})();
+</script>

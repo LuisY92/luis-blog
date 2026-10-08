@@ -9,8 +9,9 @@
   --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
+/* 深色：系统是深色且读者没有选浅色，或者读者点了「深色」 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #1B1A18;
     --ink: #E7E2D8;
     --ink2: #A29B8E;
@@ -18,6 +19,14 @@
     --accent: #E27C70;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --paper: #1B1A18;
+  --ink: #E7E2D8;
+  --ink2: #A29B8E;
+  --rule: #3A3731;
+  --accent: #E27C70;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -44,7 +53,10 @@ img { max-width: 100%; height: auto; }
   font: 12px/1.6 var(--mono); color: var(--ink2);
 }
 .top { border-bottom: 2px solid var(--ink); padding-bottom: 8px; align-items: baseline; }
-.top nav { display: flex; gap: 1.2em; }
+.top nav { display: flex; gap: 1.2em; align-items: baseline; }
+.mode { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.mode:hover { color: var(--accent); }
+.mode:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .top .brand { font: 700 15px var(--serif); color: var(--ink); letter-spacing: .06em; }
 .foot { margin-top: 44px; border-top: 2px solid var(--ink); padding-top: 10px; }
 
