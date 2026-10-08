@@ -1,13 +1,12 @@
 ---
-title: "你愿意为 AI 花多少钱"
-date: 2026-04-16T21:50:57.224Z
+title: "你愿意为AI花多少钱"
+date: 2026-04-22T08:00:00+08:00
 draft: false
-tags: ["当牛做马"]
-categories: ["轶群说", "当牛做马"]
-featuredImage: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "artificial intelligence technology"
-unsplashCredit: "Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["当牛做马"]
+issue: 14
+url: "/work/14/"
+aliases: ["/posts/yiqunshuo/当牛做马--你愿意为-ai-花多少钱/"]
+wechat: "2247484790"
 ---
 
 打工人现在桌面上大多开着一个AI窗口。问问题、查资料、写初稿——它就像一个随叫随到的助手，从不请假，也不摸鱼。
@@ -37,11 +36,3 @@ unsplashCredit: "Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?u
 生产力剧变的时代，路看不清很正常。但有一件事越来越清楚：token额度，正在变成一种真实的生产资源。谁掌握更多，谁就跑得更快。
 
 充值这件事，好像已经不是"要不要"的问题，而是"充多少"的问题了。
-
-## 关联笔记
-- [[随笔｜真的不必过度担忧：与GPT相处1000天之后]] — 从长期使用体验补充 AI 消费与陪伴价值
-- [[封面_上篇_短剧变局AI生意自闭环]] — AI 应用商业化与用户付费场景的产业侧案例
-- [[2026-05-29-用DeepSeek跑通一单副业-48小时完整复盘]] — 个人用 AI 创造收入，用收益反推付费意愿
-- [[AI 来抢饭碗了]] — 同属 AI 主题，连接 AI 的消费价值与职业冲击
-
-<small>Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

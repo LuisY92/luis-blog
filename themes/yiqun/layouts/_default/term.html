@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{- $s := partial "series-stats.html" . }}
+{{- $key := .Params.key }}
+{{- $asc := .Pages.ByDate }}
+<header class="ser-h">
+  <div class="lab dim">栏目 · {{ $s.count }} 篇 · {{ .Params.status }} · {{ (index $asc 0).Date.Format "2006-01" }} 至 {{ (index $asc.Reverse 0).Date.Format "2006-01" }}</div>
+  <h1>{{ .Title }}</h1>
+  <p>{{ .Params.description }}</p>
+  {{- if gt $s.max (len $s.primaries) }}
+  <p class="gap">公众号上共 {{ $s.max }} {{ .Params.unit }}，本站目前收录 {{ len $s.primaries }} {{ .Params.unit }}，其余的在陆续补档。</p>
+  {{- end }}
+</header>
+<ul class="rows ser">
+{{- $list := $asc }}{{ if ne .Params.status "已完结" }}{{ $list = $asc.Reverse }}{{ end }}
+{{- range $list }}
+  <li class="row">
+    <span class="i">{{ if eq (index .Params.series 0) $key }}{{ .Params.issue }}{{ else }}·{{ end }}</span>
+    <a class="t" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="m">{{ .Date.Format "2006-01-02" }}</span>
+  </li>
+{{- end }}
+</ul>
+{{ end }}

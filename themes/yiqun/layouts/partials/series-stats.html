@@ -1,0 +1,11 @@
+{{- $key := .Params.key }}
+{{- $primaries := slice }}
+{{- $max := 0 }}
+{{- range .Pages }}
+  {{- if eq (index .Params.series 0) $key }}
+    {{- $primaries = $primaries | append . }}
+    {{- if gt (int .Params.issue) $max }}{{ $max = int .Params.issue }}{{ end }}
+  {{- end }}
+{{- end }}
+{{- if gt (int (.Params.total | default 0)) $max }}{{ $max = int .Params.total }}{{ end }}
+{{- return (dict "primaries" $primaries "max" $max "count" (len .Pages)) }}

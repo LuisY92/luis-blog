@@ -1,0 +1,14 @@
+{{ define "main" }}
+<header class="ser-h">
+  <h1>{{ .Title }}</h1>
+</header>
+<ul class="rows terms">
+{{- range sort (where site.Pages "Kind" "term") "Params.order" }}
+  {{- $s := partial "series-stats.html" . }}
+  <li class="row">
+    <a class="t" href="{{ .RelPermalink }}"><b>{{ .Title }}</b><span class="ds">{{ .Params.description }}</span></a>
+    <span class="m{{ if eq .Params.status "连载中" }} on{{ end }}">{{ $s.max }} {{ .Params.unit }} · {{ .Params.status }}</span>
+  </li>
+{{- end }}
+</ul>
+{{ end }}

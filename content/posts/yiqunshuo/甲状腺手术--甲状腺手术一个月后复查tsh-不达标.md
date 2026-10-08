@@ -2,12 +2,10 @@
 title: "甲状腺手术一个月后复查TSH 不达标"
 date: 2025-08-22T22:30:21.000Z
 draft: false
-tags: ["甲状腺手术"]
-categories: ["轶群说", "甲状腺手术"]
-featuredImage: "https://images.unsplash.com/photo-1693996045463-6ea86d10a2e7?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxoZWFsdGglMjByZWNvdmVyeXxlbnwxfDB8fHwxNzc4OTE5MjkxfDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1693996045463-6ea86d10a2e7?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHxoZWFsdGglMjByZWNvdmVyeXxlbnwxfDB8fHwxNzc4OTE5MjkxfDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "health recovery"
-unsplashCredit: "Photo by [Alex Saks](https://unsplash.com/@alexsaks?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["甲状腺手术"]
+issue: 6
+url: "/thyroid/6/"
+aliases: ["/posts/yiqunshuo/甲状腺手术--甲状腺手术一个月后复查tsh-不达标/"]
 ---
 
 这周去复查了甲状腺功能指标，术后第一个月的复查，指标不太理想。根据我的病理报告，我需要控制促甲状腺激素在 0.5 左右，以起到抑制复发的作用。
@@ -25,5 +23,3 @@ unsplashCredit: "Photo by [Alex Saks](https://unsplash.com/@alexsaks?utm_source=
 我也在寻思着加大一点运动，比如早上出去走走，然后过渡到慢跑，循序渐进，就可以恢复到手术前的运动状态了。
 
 生病只是一时的， 而健康的生活才是我们永远的追求。放下一时的不适，才能恢复正常的生活。
-
-<small>Photo by [Alex Saks](https://unsplash.com/@alexsaks?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

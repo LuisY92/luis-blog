@@ -15,7 +15,7 @@
 - 文章写入 `content/posts/yiqunshuo/`。
 - Obsidian 图片 `![[...]]` 会复制到 `static/images/obsidian/` 并改成 Hugo 可用的 Markdown 图片链接。
 - 图片会从整个 `Luis_Zone` 索引，所以 `images/banner/` 里的公共头图也能找到。
-- 文章分类会包含 `轶群说` 和原来的一级目录名。
+- 新文章的栏目取 Obsidian 一级目录名（`一年又一年`、`生日` 归入 `轶周记`），已发布的文章保持原栏目。
 
 预览同步结果：
 
@@ -46,7 +46,7 @@ OBSIDIAN_SOURCE="/path/to/轶群说" OBSIDIAN_ASSET_ROOT="/path/to/Luis_Zone" no
 发布到线上：
 
 ```bash
-git add content/posts/yiqunshuo static/images/obsidian .github scripts docs
+git add content/posts static/images/obsidian data/wechat_albums.json scripts docs
 git commit -m "Sync Obsidian posts"
 git push origin main
 ```
@@ -61,24 +61,30 @@ scripts/publish-obsidian.sh
 
 这个脚本会自动执行同步、构建、提交和推送。Obsidian 插件按钮也是调用它。
 
-## 自动头图
+## 栏目、期号和网址（2026-10 改版后）
 
-同步脚本可以用 Unsplash API 给新文章自动补头图。
+同步脚本为每篇文章写入这些 front matter 字段：
 
-1. 去 [Unsplash Developers](https://unsplash.com/developers) 创建应用，拿到 `Access Key`。
-2. 在仓库根目录创建 `.env.local`：
+| 字段 | 含义 | 规则 |
+|---|---|---|
+| `series` | 栏目，第一项是主栏目 | 新文章取 Obsidian 一级目录名；已发布的保持不变 |
+| `issue` | 期号 | 新文章取该栏目最大期号加 1，写入后不再变动 |
+| `url` | 网址 | `/<栏目前缀>/<期号>/`，前缀来自 `content/series/<栏目>/_index.md` 的 `url` |
+| `aliases` | 旧网址 | 改版前的 `/posts/yiqunshuo/...`，保留用于跳转 |
+| `wechat` | 公众号文章 id | 在合集缓存里按标题对上后写入；之后标题以已发布的为准 |
 
-```bash
-UNSPLASH_ACCESS_KEY="你的 Access Key"
-OBSIDIAN_AUTO_COVER=1
-```
+栏目的说明、状态、首页排序在 `content/series/<栏目>/_index.md`，每年的阶段名在 `data/years.toml`，首页自我介绍的第一句在 `config.toml` 的 `params.lead`。
 
-默认只给新文章补头图，已经发布过且有 `featuredImage` 的文章会保留原图。
+期号和公众号合集序号对不上时，同步输出的 `warnings` 里会有一条 `Issue mismatch`，脚本不会自动改。
 
-如果要给旧文章批量补图：
+## 公众号合集缓存
 
-```bash
-node scripts/sync-obsidian.js --auto-cover --backfill-covers
-```
+`data/wechat_albums.json` 存着各个合集的标题、序号和发布日期。`scripts/refresh-wechat-albums.js` 负责刷新，发布脚本每次运行会先调它。它读的是微信的公开合集页，不是正式接口，失败时不影响发布。新建了合集要手动把合集 id 加进这个文件。
 
-脚本会使用 Unsplash API 返回的图片 URL 作为 `featuredImage`，并在文末加入摄影师和 Unsplash 署名。
+## 重复和图片
+
+- 目标文件不存在、但已有同标题的文章时，脚本跳过并在 `warnings` 里提示，不会再生成第二份。
+- 正文开头的 `# 标题` 会去掉，页面模板自己会显示标题。
+- 超过 400 KB 的正文图片会用 `sips` 缩到最长边 1600 像素并转成 JPEG。
+- 正文第一行如果是图片，视为头图，同步时去掉。属于文章内容的图片放在第一段文字之后。
+- 不再配封面图：不调 Unsplash，不生成 AI 封面，`featuredImage` 字段被忽略。`static/images/obsidian/covers/` 已加入 `.gitignore`。

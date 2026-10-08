@@ -1,16 +1,13 @@
 ---
 title: "AI 来抢饭碗了"
-date: 2025-09-06T22:41:10.000Z
+date: 2025-09-07T08:00:00+08:00
 draft: false
-tags: ["公众号", "当牛做马"]
-categories: ["轶群说", "当牛做马"]
-featuredImage: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw0fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw0fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzc4OTE5Mjg0fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "artificial intelligence technology"
-unsplashCredit: "Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["当牛做马"]
+issue: 7
+url: "/work/7/"
+aliases: ["/posts/yiqunshuo/当牛做马--ai-来抢饭碗了/"]
+wechat: "2247484576"
 ---
-
-![growtika-nGoCBxiaRO0-unsplash 1](/images/obsidian/growtika-ngocbxiaro0-unsplash-1-82824c4c1414.jpg)
 
 最近我刻意提升AI在工作中的比重，并认真打磨prompt技巧，希望能够用好 AI。这种尝试让我深刻体会到一个道理：
 
@@ -50,11 +47,3 @@ OpenAI提出了人工智能发展的五个阶段：
 想要灵活作息？那就拒绝打卡文化。想自由生活？现在就找到远程办公的公司。想要随时休假，现在开始好好攒钱，打造自己的被动收入。
 
 AI不是来抢饭碗的，而是给了我们重新思考人生的机会。**未来真正的竞争力不在于你有多努力，而在于你能多清晰地看到终点。**
-
-## 关联笔记
-- [[最新封面报道｜你被AI“炼化”了吗？]] — AI 对组织与个体工作的重塑，是“抢饭碗”主题的外部案例
-- [[最新封面报道之二｜AI校招扩容]] — 连接 AI 冲击就业与企业招聘结构变化
-- [[2026-06-04-10-个角度理解-AI-对经济的影响]] — 从宏观经济视角补充 AI 对劳动力市场的影响
-- [[你愿意为 AI 花多少钱]] — 同属 AI 主题，从工作替代转向个人付费意愿
-
-<small>Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

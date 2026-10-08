@@ -1,0 +1,4 @@
+<li class="row">
+  <a class="t" href="{{ .RelPermalink }}">{{ .Title }}</a>
+  <span class="m">{{ with partial "series-page.html" . }}{{ .Title }} No.{{ $.Params.issue }} · {{ end }}{{ .Date.Format "01-02" }}</span>
+</li>

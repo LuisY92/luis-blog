@@ -1,11 +1,12 @@
 ---
 title: "Claude 还是把我封了"
-date: 2026-08-08T22:58:26.776Z
+date: 2026-08-09T00:00:00.000Z
 draft: false
-tags: ["我和AI"]
-categories: ["轶群说", "我和AI"]
-featuredImage: "/images/obsidian/covers/claude-banned.png"
-featuredImagePreview: "/images/obsidian/covers/claude-banned.png"
+series: ["我和AI"]
+issue: 4
+url: "/ai/4/"
+aliases: ["/posts/yiqunshuo/我和ai--claude-还是把我封了/"]
+wechat: "2247484929"
 summary: "Claude 封了我的账号，但我的 AI 生活早已迁移到国产模型。聊聊我现在怎么用 AI。"
 ---
 

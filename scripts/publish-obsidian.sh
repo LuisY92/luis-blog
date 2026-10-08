@@ -20,6 +20,10 @@ if [ -f .env.local ]; then
   set +a
 fi
 
+# Refresh the WeChat album cache used to cross-check issue numbers. The endpoint
+# is unofficial, so a failure here must never block publishing.
+node scripts/refresh-wechat-albums.js || echo "WeChat album refresh skipped."
+
 node scripts/sync-obsidian.js
 ./.bin/hugo --minify
 
@@ -28,12 +32,14 @@ node scripts/sync-obsidian.js
 git restore public
 git clean -fd -- public
 
-if git diff --quiet && git diff --cached --quiet && [ -z "$(git status --porcelain -- content/posts/yiqunshuo static/images/obsidian scripts/sync-obsidian.js docs/obsidian-sync.md)" ]; then
+PUBLISH_PATHS=(content/posts static/images/obsidian data/wechat_albums.json scripts docs)
+
+if git diff --quiet && git diff --cached --quiet && [ -z "$(git status --porcelain -- "${PUBLISH_PATHS[@]}")" ]; then
   echo "No blog changes to publish."
   exit 0
 fi
 
-git add content/posts/yiqunshuo static/images/obsidian scripts/sync-obsidian.js scripts/publish-obsidian.sh docs/obsidian-sync.md
+git add "${PUBLISH_PATHS[@]}"
 
 if git diff --cached --quiet; then
   echo "No staged blog changes to publish."

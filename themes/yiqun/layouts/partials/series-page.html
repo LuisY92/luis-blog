@@ -1,0 +1,3 @@
+{{- $t := false }}
+{{- with .Params.series }}{{ $t = site.GetPage (printf "/series/%s" (lower (index . 0))) }}{{ end }}
+{{- return $t }}

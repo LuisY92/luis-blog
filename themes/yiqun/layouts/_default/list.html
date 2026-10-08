@@ -1,0 +1,12 @@
+{{ define "main" }}
+<header class="ser-h">
+  <div class="lab dim">全部 {{ len .RegularPagesRecursive }} 篇</div>
+  <h1>{{ .Title }}</h1>
+</header>
+{{- range .RegularPagesRecursive.GroupByDate "2006" }}
+<section class="yr all">
+  <div class="yh"><span class="y">{{ .Key }}</span><span class="c">{{ len .Pages }} 篇</span>{{ with index site.Data.years .Key }}<span class="ch">{{ . }}</span>{{ end }}</div>
+  <ul class="rows">{{ range .Pages }}{{ partial "row.html" . }}{{ end }}</ul>
+</section>
+{{- end }}
+{{ end }}

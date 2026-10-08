@@ -1,0 +1,2 @@
+<img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async">
+{{- with .Title }}<span class="cap">{{ . }}</span>{{ end -}}

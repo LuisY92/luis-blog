@@ -2,11 +2,10 @@
 title: "重拾Flomo,践行PAIR管理法"
 date: 2023-09-16T05:12:09+08:00
 draft: false
-tags: ["工具"]
-categories: ["个人成长"]
+url: "/p/flomo/"
+aliases: ["/posts/flomo/"]
 ---
 
-![img](https://raw.githubusercontent.com/LuisY92/picture/main/image/202309160528989.webp)
 <!--more-->
 
 ## Flomo

@@ -1,13 +1,12 @@
 ---
 title: "AI 时代的阅读"
-date: 2026-07-07T22:36:28.114Z
+date: 2026-07-08T08:00:00+08:00
 draft: false
-tags: ["阅读", "AI", "播客", "我和AI"]
-categories: ["轶群说", "我和AI"]
-featuredImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw5fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzgzNDYzNzk1fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw5fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzgzNDYzNzk1fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "artificial intelligence technology"
-unsplashCredit: "Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["我和AI"]
+issue: 3
+url: "/ai/3/"
+aliases: ["/posts/yiqunshuo/我和ai--ai-时代的阅读/"]
+wechat: "2247484870"
 ---
 
 这两天听了一期播客，《面基》主播老钱和李继刚的对谈，主题是关于 AI 时代的阅读，让我很有启发，我推荐大家也去听一下。
@@ -34,5 +33,3 @@ unsplashCredit: "Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_so
 我们看书做人，就是在不断的收集或者更新自己的 f，遇到不同的事情或者任务x，我们就是套用上不同的 f。所以每个人对待同一个事物，有不同的处理方式。
 
 看书亦如是，更加重要的还是看作者在处理变量 x的时候，用了什么函数 f，至于最终的 f(x)，可能也就没那么重要了。
-
-<small>Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

@@ -1,0 +1,3 @@
+{{- with partial "series-page.html" . -}}
+<a href="{{ .RelPermalink }}">{{ .Title }}</a> No.{{ $.Params.issue }}
+{{- end -}}

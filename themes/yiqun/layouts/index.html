@@ -1,0 +1,66 @@
+{{ define "main" }}
+{{- $posts := where site.RegularPages "Section" "posts" }}
+{{- $terms := where site.Pages "Kind" "term" }}
+{{- $words := 0 }}{{ range $posts }}{{ $words = add $words .WordCount }}{{ end }}
+{{- $ranked := slice }}{{ $done := slice }}
+{{- range sort $terms "Params.order" }}
+  {{- $ranked = $ranked | append (dict "n" (len .Pages) "title" .Title) }}
+  {{- if eq .Params.status "已完结" }}{{ $done = $done | append .Title }}{{ end }}
+{{- end }}
+{{- $top := first 3 (sort $ranked "n" "desc") }}
+{{- $latest := index $posts.ByDate.Reverse 0 }}
+<h1 class="name">{{ site.Title }}</h1>
+<p class="intro">{{ site.Params.lead }}{{ with site.Params.motto }}<br>{{ . }}{{ end }}</p>
+<p class="stats">{{ site.Params.since }} 年底到现在写了 {{ len $posts }} 篇、{{ lang.FormatNumber 1 (div (float $words) 10000) }} 万字，写得最多的是{{ range $i, $e := $top }}{{ if eq $i 2 }}和{{ else if $i }}、{{ end }}{{ $e.title }}{{ end }}。
+{{- with $done }}写完了的有{{ delimit . "、" }}。{{ end }}
+{{- with index site.Data.years ($latest.Date.Format "2006") }}最近在写{{ . }}。{{ end }}</p>
+
+<section class="cols" aria-label="栏目">
+{{- range sort (where $terms "Params.featured" true) "Params.order" }}
+  {{- $s := partial "series-stats.html" . }}
+  <a class="col" href="{{ .RelPermalink }}">
+    <span class="st{{ if eq .Params.status "连载中" }} on{{ end }}">{{ $s.max }} {{ .Params.unit }} · {{ .Params.status }}</span>
+    <span class="nm">{{ .Title }}</span>
+    <span class="ds">{{ .Params.short }}</span>
+  </a>
+{{- end }}
+</section>
+<p class="more">还有：
+{{- range $i, $t := sort (where $terms "Params.featured" false) "Params.order" }}
+  {{- $s := partial "series-stats.html" $t }}{{ if $i }} · {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.Title }} {{ $s.max }}</a>
+{{- end }}</p>
+
+{{- range $gi, $g := $posts.GroupByDate "2006" }}
+{{- $stage := index site.Data.years $g.Key }}
+{{- if eq $gi 0 }}
+<section class="yr">
+  <div class="yh"><span class="y">{{ $g.Key }}</span><span class="c">{{ len $g.Pages }} 篇</span>{{ with $stage }}<span class="ch">{{ . }}</span>{{ end }}</div>
+  <div>
+    {{- with index $g.Pages 0 }}
+    <article class="feat">
+      <div class="lab">{{ partial "label.html" . }}{{ if .Params.series }} · {{ end }}{{ .Date.Format "01-02" }}</div>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{- $lead := "" }}
+      {{- range findRE `(?s)<p>.*?</p>` .Content 4 }}{{ if and (not $lead) (not (in . "<img")) }}{{ $lead = . | plainify | htmlUnescape }}{{ end }}{{ end }}
+      {{- with $lead }}<p>{{ . }}</p>{{ end }}
+    </article>
+    {{- end }}
+    <ul class="rows">
+    {{- range first 6 (after 1 $g.Pages) }}{{ partial "row.html" . }}{{ end }}
+    </ul>
+    {{- with after 7 $g.Pages }}
+    <details class="rest">
+      <summary>{{ $g.Key }} 年其余 {{ len . }} 篇</summary>
+      <ul class="rows">{{ range . }}{{ partial "row.html" . }}{{ end }}</ul>
+    </details>
+    {{- end }}
+  </div>
+</section>
+{{- else }}
+<details class="yrc">
+  <summary><span class="y">{{ $g.Key }}</span><span class="d">{{ len $g.Pages }} 篇{{ with $stage }} · {{ . }}{{ end }}</span></summary>
+  <ul class="rows">{{ range $g.Pages }}{{ partial "row.html" . }}{{ end }}</ul>
+</details>
+{{- end }}
+{{- end }}
+{{ end }}

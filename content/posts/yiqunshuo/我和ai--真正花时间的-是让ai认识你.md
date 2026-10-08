@@ -1,13 +1,12 @@
 ---
 title: "真正花时间的，是让AI认识你"
-date: 2026-06-01T22:39:39.950Z
+date: 2026-06-02T08:00:00+08:00
 draft: false
-tags: ["我和AI"]
-categories: ["轶群说", "我和AI"]
-featuredImage: "https://images.unsplash.com/photo-1677442135136-760c813028c0?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw4fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzgxMDQ1MTA4fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1677442135136-760c813028c0?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw4fHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfDB8fHwxNzgxMDQ1MTA4fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "artificial intelligence technology"
-unsplashCredit: "Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["我和AI"]
+issue: 1
+url: "/ai/1/"
+aliases: ["/posts/yiqunshuo/我和ai--真正花时间的-是让ai认识你/"]
+wechat: "2247484835"
 summary: "我搭了一个属于自己的 AI 助手，用了一段时间后，最深的感受不是激动，而是沉浸。"
 ---
 
@@ -44,5 +43,3 @@ summary: "我搭了一个属于自己的 AI 助手，用了一段时间后，最
 所以限制你的不是脑力，而是体力——看你能不能长时间坐在电脑前，和 AI 一起共创。
 
 这样的 AI 助手是有时间复利的。当它积攒了足够多的上下文，它会越来越了解你，成为独属于你的 AI 助手，成为你的外脑，无限放大你的能力。
-
-<small>Photo by [Steve A Johnson](https://unsplash.com/@steve_j?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

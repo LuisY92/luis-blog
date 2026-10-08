@@ -1,13 +1,12 @@
 ---
 title: "给自己做了个Skill"
-date: 2026-06-09T22:45:02.165Z
+date: 2026-06-10T00:00:00.000Z
 draft: false
-tags: ["AI", "skill", "知识管理", "个人思考", "我和AI"]
-categories: ["轶群说", "我和AI"]
-featuredImage: "https://images.unsplash.com/photo-1618393678108-820a9d6e41ed?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHx3cml0aW5nJTIwam91cm5hbCUyMGRlc2t8ZW58MXwwfHx8MTc4MTA0NTEwN3ww&ixlib=rb-4.1.0&auto=format&fit=crop&w=1600&q=80"
-featuredImagePreview: "https://images.unsplash.com/photo-1618393678108-820a9d6e41ed?ixid=M3w5NTI2NTJ8MHwxfHNlYXJjaHw2fHx3cml0aW5nJTIwam91cm5hbCUyMGRlc2t8ZW58MXwwfHx8MTc4MTA0NTEwN3ww&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80"
-coverQuery: "writing journal desk"
-unsplashCredit: "Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral)."
+series: ["我和AI"]
+issue: 2
+url: "/ai/2/"
+aliases: ["/posts/yiqunshuo/我和ai--给自己做了个skill/"]
+wechat: "2247484844"
 summary: "当知识获取成本趋近于零，什么才是人与人之间真正的分水岭？用一个从剪藏到水墨屏 EPUB 的亲身经历，聊聊「Skill」在 AI 时代的价值。"
 ---
 
@@ -44,5 +43,3 @@ Skill 固化之后，我等于永久获得了一个新能力——把原本在�
 当知识的获取成本将近于零的时候，真正的门槛变成了——你能不能把知识转化成行动，能不能和 AI 一起磨出属于你自己的 Skill。
 
 这才是AI 时代人和人之间真正的分水岭。
-
-<small>Photo by [Eugenia Ai](https://unsplash.com/@eugeniia?utm_source=luis_blog&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=luis_blog&utm_medium=referral).</small>

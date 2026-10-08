@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{- $term := partial "series-page.html" . }}
+<article class="art">
+  {{- if eq .Section "posts" }}
+  <div class="lab">{{ partial "label.html" . }}{{ if $term }} · {{ end }}{{ .Date.Format "2006-01-02" }} · {{ .WordCount }} 字</div>
+  {{- end }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Params.summary }}<p class="sum">{{ . }}</p>{{ else }}<hr class="sum-rule">{{ end }}
+  <div class="prose">
+{{ .Content }}
+  </div>
+  {{- if eq .Section "posts" }}
+  <div class="end">— 完 —</div>
+  {{- if $term }}
+  {{- $s := partial "series-stats.html" $term }}
+  {{- $cur := int .Params.issue }}{{ $prev := false }}{{ $next := false }}
+  {{- range sort $s.primaries "Params.issue" }}
+    {{- if lt (int .Params.issue) $cur }}{{ $prev = . }}{{ else if and (gt (int .Params.issue) $cur) (not $next) }}{{ $next = . }}{{ end }}
+  {{- end }}
+  <nav class="pn" aria-label="同栏目文章">
+    <div>{{ with $prev }}<span class="lab">上一{{ $term.Params.unit }} · No.{{ .Params.issue }}</span><a class="t" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}<span class="lab">上一{{ $term.Params.unit }}</span><span class="t none">这是本站收录的第一{{ $term.Params.unit }}</span>{{ end }}</div>
+    <div>{{ with $next }}<span class="lab">下一{{ $term.Params.unit }} · No.{{ .Params.issue }}</span><a class="t" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}<span class="lab">下一{{ $term.Params.unit }}</span><span class="t none">这是最新一{{ $term.Params.unit }}</span>{{ end }}</div>
+  </nav>
+  {{- end }}
+  {{- end }}
+  <aside class="sub">
+    <img class="qr" src="{{ site.Params.qr }}" alt="公众号{{ site.Params.wechat }}的二维码" width="84" height="84" loading="lazy">
+    <p>{{ if and $term (eq $term.Params.status "连载中") }}{{ $term.Title }}还在更新。{{ end }}扫码在公众号「{{ site.Params.wechat }}」收新的一篇，或者订阅 <a href="/index.xml">RSS</a>。{{ with $term }}<br><a href="{{ .RelPermalink }}">看{{ .Title }}的全部目录 →</a>{{ end }}</p>
+  </aside>
+</article>
+{{ end }}

@@ -1,0 +1,8 @@
+<header class="top">
+  {{- if .IsHome }}
+  <span>{{ site.Params.city }} · {{ site.Params.since }} 年起 · 第 {{ len (where site.RegularPages "Section" "posts") }} 篇</span>
+  {{- else }}
+  <a class="brand" href="/">{{ site.Title }}</a>
+  {{- end }}
+  <nav><a href="/series/">栏目</a><a href="/archive/">时间轴</a><a href="/about/">关于</a><a href="/index.xml">RSS</a></nav>
+</header>
