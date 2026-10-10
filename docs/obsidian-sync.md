@@ -95,12 +95,28 @@ scripts/publish-obsidian.sh
 
 ## 文字封面（公众号推送用）
 
-公众号推送必须有封面。文章自己有配图时用配图；没有配图时用 `scripts/make-cover.py` 生成的文字封面（期号加标题，900×383）。
+公众号推送必须有封面。文章自己有配图时用配图；没有配图时用 `scripts/make-cover.py` 生成的文字封面。
+
+公众号 要两个比例：2.35:1（900×383，消息列表）和 1:1（383×383，转发卡片和主页）。
+后台只让上传一张图、再用裁剪框分别选区域，所以脚本默认输出一张 **2570×766** 的并排图，
+左右各一块、高度都是 766，中间一条 4px 浅色分隔线：
+
+| 区域 | 像素范围 | 裁给 |
+|---|---|---|
+| 左块 | x 0–1800 | 2.35:1 消息列表 |
+| 右块 | x 1804–2570 | 1:1 转发卡片和公众号主页 |
+
+上传后把消息列表的裁剪框拖到左边、转发卡片的拖到右边，两边都是排好版的。
+两块各自都含栏目名、期号、标题、署名和日期，不是把长图硬裁出来的。
 
 ```bash
 /usr/bin/python3 scripts/make-cover.py            # 最新一篇
 /usr/bin/python3 scripts/make-cover.py 关键字     # 标题含关键字的最新一篇
+/usr/bin/python3 scripts/make-cover.py --long     # 只要 2.35:1 那块
+/usr/bin/python3 scripts/make-cover.py --square   # 只要 1:1 那块
 /usr/bin/python3 scripts/make-cover.py --og       # 重新生成站点分享图 og-cover.png
 ```
 
-发布脚本每次运行会为最新一篇生成一张，放在 `Hermes/outputs/轶群说封面/`，命令会打印文件路径。脚本依赖 Pillow，要用系统自带的 `/usr/bin/python3` 运行。
+发布脚本每次运行会为最新一篇生成一张，放在 `Hermes/outputs/轶群说封面/`，命令会打印文件路径。
+`--long` / `--square` 另存为带后缀的文件，不会覆盖并排图。脚本依赖 Pillow，要用系统自带的
+`/usr/bin/python3` 运行。

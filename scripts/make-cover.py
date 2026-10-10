@@ -3,11 +3,15 @@
 
   scripts/make-cover.py               cover for the most recent post
   scripts/make-cover.py 关键字        cover for the newest post whose title contains 关键字
+  scripts/make-cover.py --long        only the 2.35:1 panel (900x383 @2x)
+  scripts/make-cover.py --square      only the 1:1 panel (383x383 @2x)
   scripts/make-cover.py --og          the site-wide share image (static/images/brand/og-cover.png)
   --out DIR                           where post covers go (default: Hermes/outputs/轶群说封面)
 
-A post cover is 900x383 (2.35:1, what 公众号 asks for), rendered at 2x. It is
-meant for posts that have no picture of their own to use as the cover.
+Default output is the two panels side by side: 2570x766 = [2.35:1 消息列表] | [1:1 转发卡片],
+each 766px tall with a light divider between them. 公众号 需要两种比例，后台只让上传一张图、
+再用裁剪框分别选区域——把两块并排放在一张图上，消息列表的裁剪框拖到左边（x 0–1800）、
+转发卡片的拖到右边（x 1804–2570），两边都是排好版的。
 Prints the path of the file it wrote. Needs Pillow: run with /usr/bin/python3.
 """
 import re
@@ -25,7 +29,23 @@ MENLO = "/System/Library/Fonts/Menlo.ttc"
 BLACK, BOLD, REGULAR = 0, 1, 6  # faces inside Songti.ttc
 
 PAPER, INK, INK2, ACCENT = "#F8F6F0", "#1C1A17", "#6A645A", "#9E2B25"
+SEAM = "#E6E1D6"
+SEAM_W = 4  # divider between the two panels; light enough to be invisible if a crop clips it
 NO_LINE_START = "，。、；：？！）》」』”’…—"
+
+# Geometry per panel. The 1:1 panel is 766px tall like the 2.35:1 one, but only
+# 766px wide instead of 1800, so its type runs a size or two smaller and may use
+# a third title line.
+LONG = dict(
+    W=1800, H=766, PAD=96, head_y=80, head_size=46, num_y=84, num_size=44, head_gap=22,
+    rule_y=160, title_sizes=(136, 124, 112, 100, 90, 80, 70), max_lines=2, one_line_min=112,
+    foot_gap=150, foot_name_y=648, date_y=656, date_size=36,
+)
+SQUARE = dict(
+    W=766, H=766, PAD=72, head_y=54, head_size=38, num_y=58, num_size=36, head_gap=18,
+    rule_y=120, title_sizes=(110, 100, 92, 84, 76, 68, 60, 54), max_lines=3, one_line_min=100,
+    foot_gap=130, foot_name_y=662, date_y=670, date_size=30,
+)
 
 
 def songti(size, face=BOLD):
@@ -74,14 +94,32 @@ def find_post(keyword):
 
 
 def wrap(draw, text, font, width):
+    """Break into lines, never starting a line with punctuation.
+
+    Punctuation that would land at a line start may hang past the right margin
+    (Chinese convention), but only by half an em — past that, the preceding
+    character is moved down with it so the margin stays honest.
+    """
     lines, line = [], ""
     for ch in text:
-        if draw.textlength(line + ch, font=font) > width and line and ch not in NO_LINE_START:
+        if draw.textlength(line + ch, font=font) <= width or not line:
+            line += ch
+            continue
+        if ch not in NO_LINE_START:
             lines.append(line)
             line = ch
+        elif draw.textlength(line + ch, font=font) - width <= font.size * 0.5:
+            line += ch
+        elif len(line) > 1:
+            lines.append(line[:-1])
+            line = line[-1] + ch
         else:
             line += ch
     return lines + [line] if line else lines
+
+
+def fits_one_line(draw, text, size, width):
+    return draw.textlength(text, font=songti(size, BLACK)) <= width
 
 
 def balance(draw, text, font, width):
@@ -99,59 +137,92 @@ def balance(draw, text, font, width):
     return best[1] if best else None
 
 
-def fit_title(draw, title, width, sizes):
-    """Largest size that gives one line, or two lines without a stranded last character."""
+def fit_title(draw, title, width, region_h, sizes, max_lines=2, one_line_min=112):
+    """Largest size that gives one line, or a balanced break without a stranded tail.
+
+    Never truncates the title: if no size in `sizes` fits within `max_lines`, it
+    keeps shrinking until the whole title fits the region height instead.
+    """
     # A title that fits on one line at a still-large size reads better than a
     # bigger one broken in the middle of a word.
     for size in sizes:
-        if size >= 112 and len(wrap(draw, title, songti(size, BLACK), width)) == 1:
+        if size >= one_line_min and fits_one_line(draw, title, size, width):
             return songti(size, BLACK), [title], size
     fallback = None
     for size in sizes:
         font = songti(size, BLACK)
+        if fits_one_line(draw, title, size, width):
+            return font, [title], size
         lines = wrap(draw, title, font, width)
-        if len(lines) == 1:
-            return font, lines, size
         if len(lines) == 2:
             lines = balance(draw, title, font, width) or lines
             if len(lines[-1]) >= 4:
                 return font, lines, size
             fallback = fallback or (font, lines, size)
-    return fallback or (font, lines[:2], size)
+        elif len(lines) <= max_lines:
+            fallback = fallback or (font, lines, size)
+    if fallback:
+        return fallback
+    size = sizes[-1]
+    while size > 24 and len(wrap(draw, title, songti(size, BLACK), width)) * int(size * 1.28) > region_h:
+        size -= 4
+    font = songti(size, BLACK)
+    return font, wrap(draw, title, font, width), size
 
 
-def post_cover(post, out_dir):
-    W, H, PAD = 1800, 766, 96
+def render_panel(post, geom):
+    W, H, PAD = geom["W"], geom["H"], geom["PAD"]
     img = Image.new("RGB", (W, H), PAPER)
     draw = ImageDraw.Draw(img)
     name = series_names().get(post["series"], post["series"])
 
     # Menlo has no Chinese glyphs: the column name is set in Songti, the number in Menlo.
+    head_font, num_font = songti(geom["head_size"], BOLD), mono(geom["num_size"])
     x = PAD
     if name:
-        draw.text((x, 80), name, font=songti(46, BOLD), fill=ACCENT)
-        x += draw.textlength(name, font=songti(46, BOLD)) + 22
-        draw.text((x, 84), f"No.{post['issue']}", font=mono(44), fill=ACCENT)
+        draw.text((x, geom["head_y"]), name, font=head_font, fill=ACCENT)
+        x += draw.textlength(name, font=head_font) + geom["head_gap"]
+        draw.text((x, geom["num_y"]), f"No.{post['issue']}", font=num_font, fill=ACCENT)
     else:
-        draw.text((x, 80), "轶群说", font=songti(46, BOLD), fill=ACCENT)
-    draw.rectangle([PAD, 160, W - PAD, 163], fill=INK)
+        draw.text((x, geom["head_y"]), "轶群说", font=head_font, fill=ACCENT)
+    draw.rectangle([PAD, geom["rule_y"], W - PAD, geom["rule_y"] + 3], fill=INK)
 
-    font, lines, size = fit_title(draw, post["title"], W - 2 * PAD, (136, 124, 112, 100, 90, 80, 70))
+    top, bottom = geom["rule_y"] + 3, H - geom["foot_gap"]
+    font, lines, size = fit_title(
+        draw, post["title"], W - 2 * PAD, bottom - top,
+        geom["title_sizes"], geom["max_lines"], geom["one_line_min"],
+    )
     line_h = int(size * 1.28)
-    y = 163 + (H - 163 - 150 - line_h * len(lines)) // 2
+    y = top + (bottom - top - line_h * len(lines)) // 2
     for line in lines:
         draw.text((PAD, y), line, font=font, fill=INK)
         y += line_h
 
-    draw.rectangle([PAD, H - 150, W - PAD, H - 147], fill=INK)
-    draw.text((PAD, H - 118), "轶群说", font=songti(46, BOLD), fill=INK)
+    draw.rectangle([PAD, H - geom["foot_gap"], W - PAD, H - geom["foot_gap"] + 3], fill=INK)
+    draw.text((PAD, geom["foot_name_y"]), "轶群说", font=head_font, fill=INK)
     date = post["date"][:10]
-    draw.text((W - PAD - draw.textlength(date, font=mono(36)), H - 110), date, font=mono(36), fill=INK2)
+    date_font = mono(geom["date_size"])
+    draw.text((W - PAD - draw.textlength(date, font=date_font), geom["date_y"]), date, font=date_font, fill=INK2)
+    return img
+
+
+def post_cover(post, out_dir, mode="both"):
+    long_panel, square_panel = render_panel(post, LONG), render_panel(post, SQUARE)
+    if mode == "long":
+        img = long_panel
+    elif mode == "square":
+        img = square_panel
+    else:
+        img = Image.new("RGB", (LONG["W"] + SEAM_W + SQUARE["W"], LONG["H"]), PAPER)
+        img.paste(long_panel, (0, 0))
+        img.paste(square_panel, (LONG["W"] + SEAM_W, 0))
+        ImageDraw.Draw(img).rectangle([LONG["W"], 0, LONG["W"] + SEAM_W - 1, LONG["H"]], fill=SEAM)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     safe = re.sub(r'[/\\:*?"<>|\s]+', "-", post["title"]).strip("-")[:40]
     prefix = f"{post['series']}-No{post['issue']}-" if post["series"] else ""
-    out = out_dir / f"{prefix}{safe}.png"
+    suffix = {"both": "", "long": "-2.35-1", "square": "-1-1"}[mode]  # never clobber the combined file
+    out = out_dir / f"{prefix}{safe}{suffix}.png"
     img.save(out, optimize=True)
     return out
 
@@ -183,10 +254,15 @@ def main():
         i = args.index("--out")
         out_dir = Path(args[i + 1]).expanduser()
         del args[i:i + 2]
+    mode = "both"
+    for flag, name in (("--long", "long"), ("--square", "square")):
+        if flag in args:
+            mode = name
+            args.remove(flag)
     if "--og" in args:
         print(og_cover())
         return
-    print(post_cover(find_post(args[0] if args else ""), out_dir))
+    print(post_cover(find_post(args[0] if args else ""), out_dir, mode))
 
 
 if __name__ == "__main__":
