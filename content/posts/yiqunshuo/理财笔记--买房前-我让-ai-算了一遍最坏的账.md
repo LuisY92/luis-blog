@@ -5,6 +5,7 @@ draft: false
 series: ["理财笔记"]
 issue: 34
 url: "/money/34/"
+wechat: "2247485080"
 summary: "三个情景，一张清单。算完这些我才敢签字，也知道万一最坏的那件事发生，家里会是什么样。"
 ---
 
